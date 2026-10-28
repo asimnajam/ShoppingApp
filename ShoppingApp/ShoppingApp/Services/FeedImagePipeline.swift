@@ -1,6 +1,6 @@
 //
 //  FeedImagePipeline.swift
-//  RepoRadar
+//  ShoppingApp
 //
 //  Created by Syed Asim Najam on 16/10/2026.
 //
@@ -70,7 +70,7 @@ actor FeedImagePipeline {
         configuration.urlCache = URLCache(
             memoryCapacity: 24 * 1024 * 1024,
             diskCapacity: 160 * 1024 * 1024,
-            diskPath: "InterviewNewsFeedImages"
+            diskPath: "ProductImages"
         )
 
         return URLSession(configuration: configuration)

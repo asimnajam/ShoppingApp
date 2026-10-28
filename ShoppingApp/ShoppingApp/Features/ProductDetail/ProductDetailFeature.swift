@@ -1,6 +1,6 @@
 //
 //  ProductDetailFeature.swift
-//  RepoRadar
+//  ShoppingApp
 //
 //  Created by Syed Asim Najam on 16/10/2026.
 //
@@ -32,7 +32,7 @@ struct ProductDetailFeature {
         Reduce { state, action in
             switch action {
             case .addToCartTapped:
-                guard (1...99).contains(state.quantity) else {
+                guard (1...CartItem.maxQuantity).contains(state.quantity) else {
                     return .none
                 }
                 state.didAddToCart = true
@@ -53,7 +53,6 @@ import ComposableArchitecture
 struct ProductDetailView: View {
     @Bindable var store: StoreOf<ProductDetailFeature>
     
-    let feedImagePipeline = FeedImagePipeline()
     private var imageURLs: [URL] {
         store.product.images.isEmpty
         ? [store.product.thumbnail]
@@ -100,7 +99,7 @@ struct ProductDetailView: View {
                 Stepper(
                     "Quantity: \(store.quantity)",
                     value: $store.quantity,
-                    in: 1...99
+                    in: 1...CartItem.maxQuantity
                 )
 
                 Button {

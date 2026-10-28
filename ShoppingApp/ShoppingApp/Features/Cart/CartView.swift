@@ -1,6 +1,6 @@
 //
 //  CartView.swift
-//  RepoRadar
+//  ShoppingApp
 //
 //  Created by Syed Asim Najam on 20/10/2026.
 //
@@ -38,7 +38,7 @@ struct CartView: View {
                             get: { item.quantity },
                             set: { newValue in
                             store.send(.quantityChanged(id: item.id, quantity: newValue))
-                        }), in: 0...Int.max)
+                        }), in: 0...CartItem.maxQuantity)
                         
                     }
                     .padding(.vertical, 4)

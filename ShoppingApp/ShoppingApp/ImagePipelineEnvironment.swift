@@ -1,6 +1,6 @@
 //
 //  ImagePipelineEnvironment.swift
-//  RepoRadar
+//  ShoppingApp
 //
 //  Created by Syed Asim Najam on 18/10/2026.
 //

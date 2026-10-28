@@ -1,6 +1,6 @@
 //
 //  ShopFeature.swift
-//  RepoRadar
+//  ShoppingApp
 //
 //  Created by Syed Asim Najam on 20/10/2026.
 //
@@ -52,7 +52,10 @@ struct ShopFeature {
                 )
             ):
                 if let index = state.cart.items.firstIndex(where: { $0.id == product.id }) {
-                    state.cart.items[index].quantity += quantity
+                    state.cart.items[index].quantity = min(
+                        state.cart.items[index].quantity + quantity,
+                        CartItem.maxQuantity
+                    )
                 } else {
                     state.cart.items.append(CartItem(product: product, quantity: quantity))
                 }

@@ -1,6 +1,6 @@
 //
 //  ProductListFeature.swift
-//  RepoRadar
+//  ShoppingApp
 //
 //  Created by Syed Asim Najam on 13/10/2026.
 //
@@ -20,8 +20,6 @@ struct ProductListFeature {
         var resultsQuery = ""
         var isLoadingMore = false
         var paginationError: String?
-//        var cart: [CartItem] = []
-//        @Presents var destination: Destination.State?
         
         enum LoadingState: Equatable {
             case idle
@@ -36,10 +34,6 @@ struct ProductListFeature {
         case detail(ProductDetailFeature)
     }
     
-//    @Reducer
-//    enum Destination {
-//        case cart(CartFeature)
-//    }
     
     enum Action {
         case searchQueryChanged(String)
@@ -52,8 +46,6 @@ struct ProductListFeature {
         case productFailed(String)
         case productSelected(Product)
         case path(StackAction<Path.State, Path.Action>)
-//        case cartTapped
-//        case sheetDestination(PresentationAction<Destination.Action>)
         case delegate(Delegate)
         
         enum Delegate {
@@ -178,7 +170,6 @@ struct ProductListFeature {
             }
         }
         .forEach(\.path, action: \.path)
-//        .ifLet(\.$destination, action: \.sheetDestination)
     }
 
     private func loadFirstPage(

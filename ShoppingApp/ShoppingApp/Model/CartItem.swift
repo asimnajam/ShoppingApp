@@ -1,12 +1,14 @@
 //
 //  CartItem.swift
-//  RepoRadar
+//  ShoppingApp
 //
 //  Created by Syed Asim Najam on 20/10/2026.
 //
 import Foundation
 
 struct CartItem: Identifiable, Codable, Equatable, Sendable {
+    static let maxQuantity = 99
+
     let id: Product.ID
     let title: String
     let price: Double

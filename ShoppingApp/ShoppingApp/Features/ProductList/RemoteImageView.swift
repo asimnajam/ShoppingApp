@@ -1,6 +1,6 @@
 //
 //  RemoteImageView.swift
-//  RepoRadar
+//  ShoppingApp
 //
 //  Created by Syed Asim Najam on 16/10/2026.
 //

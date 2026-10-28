@@ -1,6 +1,6 @@
 //
 //  NetworkClient.swift
-//  RepoRadar
+//  ShoppingApp
 //
 //  Created by Syed Asim Najam on 13/10/2026.
 //
@@ -31,6 +31,8 @@ enum NetworkClientError: Error, CustomStringConvertible, LocalizedError {
             "The URL provided was invalid."
         }
     }
+
+    var errorDescription: String? { description }
 }
 
 extension DecodingError {
@@ -58,12 +60,6 @@ extension DecodingError {
         }
     }
 }
-
-//protocol NetworkDataDecodable {
-//    associatedtype Response: Decodable
-//    
-//    func decode()
-//}
 
 enum APIError: Error {
     case invalidBaseURL

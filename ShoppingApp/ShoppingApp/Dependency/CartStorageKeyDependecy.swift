@@ -1,6 +1,6 @@
 //
 //  CartStorageKeyDependecy.swift
-//  RepoRadar
+//  ShoppingApp
 //
 //  Created by Syed Asim Najam on 27/10/2026.
 //

@@ -1,6 +1,6 @@
 //
 //  ProductService.swift
-//  RepoRadar
+//  ShoppingApp
 //
 //  Created by Syed Asim Najam on 13/10/2026.
 //
@@ -8,10 +8,6 @@
 import Foundation
 
 protocol ProductService: Sendable {
-    func fetchAll() async throws -> [Product] //https://dummyjson.com/products
-    func getProduct(by id: String) async throws //https://dummyjson.com/products
-    func search(query: String) async throws -> [Product]
-    func getProductCatagories()
     func fetchPage(
         query: String,
         limit: Int,
@@ -25,27 +21,6 @@ struct DefaultProductService: ProductService {
     
     init(client: NetworkClient = DefaultNetworkClient(baseURLString: baseURL)) {
         self.client = client
-    }
-    
-    func fetchAll() async throws -> [Product] {
-        let endPoint = GetAllProductsEndPoint()
-        let product = try await client.fetch(endPoint: endPoint)
-        print(product)
-        return product.products
-    }
-    
-    func getProduct(by id: String) async throws {
-        
-    }
-    
-    func search(query: String) async throws -> [Product] {
-        let endPoint = SearchProductsEndPoint(query: query)
-        let response = try await client.fetch(endPoint: endPoint)
-        return response.products
-    }
-    
-    func getProductCatagories() {
-        
     }
     
     func fetchPage(

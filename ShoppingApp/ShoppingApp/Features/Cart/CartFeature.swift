@@ -1,6 +1,6 @@
 //
 //  CartFeature.swift
-//  RepoRadar
+//  ShoppingApp
 //
 //  Created by Syed Asim Najam on 20/10/2026.
 //
