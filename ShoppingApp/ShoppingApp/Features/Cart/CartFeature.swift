@@ -38,7 +38,6 @@ struct CartFeature {
                     state.items[index].quantity = quantity
                 }
                 return .send(.delegate(.itemsChanged(state.items)))
-                
             case .removedTapped(let id):
                 state.items.removeAll(where: { $0.id == id })
                 return .send(.delegate(.itemsChanged(state.items)))

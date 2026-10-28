@@ -57,7 +57,7 @@ struct ProductDetailView: View {
     private var imageURLs: [URL] {
         store.product.images.isEmpty
         ? [store.product.thumbnail]
-        : [store.product.thumbnail, store.product.thumbnail, store.product.thumbnail]
+        : store.product.images
     }
 
     var body: some View {

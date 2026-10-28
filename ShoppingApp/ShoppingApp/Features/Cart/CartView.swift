@@ -21,32 +21,6 @@ struct CartView: View {
                     description: Text("Add products to get started.")
                 )
             } else {
-//                List {
-//                    ForEach(store.items) { item in
-//                        VStack(alignment: .leading, spacing: 8) {
-//                            Text(item.product.title)
-//                                .font(.headline)
-//                            
-//                            Text("Quantity: \(item.quantity)")
-//                            
-//                            Text(
-//                                item.product.price,
-//                                format: .currency(code: "USD")
-//                            )
-//                            .foregroundStyle(.secondary)
-//                            
-//                            Stepper("Quantity: \(item.quantity)", value: Binding(
-//                                get: { item.quantity },
-//                                set: { newValue in
-//                                store.send(.quantityChanged(id: item.id, quantity: newValue))
-//                            }), in: 1...Int.max)
-//                        }
-//                        .padding(.vertical, 4)
-//                    }
-//                    .onDelete { indexSet in
-//                        
-//                    }
-//                }
                 List(store.items) { item in
                     VStack(alignment: .leading, spacing: 8) {
                         Text(item.product.title)
@@ -69,12 +43,13 @@ struct CartView: View {
                     }
                     .padding(.vertical, 4)
                     .swipeActions {
-                        Button("Quantity", role: .destructive) {
+                        Button("Remove", role: .destructive) {
                             store.send(.removedTapped(id: item.id))
                         }
 
                     }
                 }
+                .navigationTitle("Cart")
             }
         }
     }

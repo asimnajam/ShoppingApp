@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum NetworkClientError: Error, CustomStringConvertible {
+enum NetworkClientError: Error, CustomStringConvertible, LocalizedError {
     case taskCancellation
     case networkError(Error)
     case invalidResponse

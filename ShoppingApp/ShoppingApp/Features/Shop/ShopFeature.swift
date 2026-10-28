@@ -56,9 +56,8 @@ struct ShopFeature {
                 } else {
                     state.cart.items.append(CartItem(product: product, quantity: quantity))
                 }
-//                return .none
                 return .send(.saveCart)
-            case .cart(.quantityChanged):
+            case .cart(.delegate(.itemsChanged)):
                 return .send(.saveCart)
             case .cart, .products:
                 return .none

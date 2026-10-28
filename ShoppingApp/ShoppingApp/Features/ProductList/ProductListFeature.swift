@@ -80,33 +80,10 @@ struct ProductListFeature {
                 state.loadingState = .loading
                 
                 return loadFirstPage(query: query, delay: .zero)
-                
-//                return .run { [productService] send in
-//                    do {
-//                        let items = try await productService.search(query: trimmedQuery)
-//                        try Task.checkCancellation()
-//                        await send(.productsLoaded(items))
-//                    } catch {
-//                        guard !Task.isCancelled else { return }
-//                        await send(.productFailed(error.localizedDescription))
-//                    }
-//                }
-//                .cancellable(id: CancelID.products, cancelInFlight: true)
             case .fetchProducts:
                 state.loadingState = .loading
                 
                 return loadFirstPage(query: "", delay: .zero)
-//                return .run { send in
-//                    do {
-//                        let items = try await productService.fetchAll()
-//                        await send(.productsLoaded(items))
-//                    } catch is CancellationError {
-//                        
-//                    } catch {
-//                        await send(.productFailed(error.localizedDescription))
-//                    }
-//                }
-//                .cancellable(id: CancelID.products, cancelInFlight: true)
             case .productSelected(let product):
                 state.path.append(.detail(ProductDetailFeature.State(product: product)))
                 return .none
@@ -138,8 +115,7 @@ struct ProductListFeature {
                     return .send(.fetchProducts)
                 }
                 
-                return loadFirstPage(query: query, delay: .microseconds(300))
-//                return .none
+                return loadFirstPage(query: query, delay: .milliseconds(300))
             case .loadMore:
                 guard case .loaded = state.loadingState,
                       !state.isLoadingMore,
@@ -201,26 +177,7 @@ struct ProductListFeature {
         .forEach(\.path, action: \.path)
 //        .ifLet(\.$destination, action: \.sheetDestination)
     }
-    
-//    private func searchProducts(query: String, delay: Duration) -> EffectOf<Self> {
-//        .run { [clock, productService] send in
-//            do {
-//                if delay > .zero {
-//                    try await clock.sleep(for: delay)
-//                }
-//                
-//                let products = try await productService.search(query: query)
-//                
-//                try Task.checkCancellation()
-//                
-//                await send(.productsLoaded(products))
-//            } catch {
-//                guard !Task.isCancelled else { return }
-//                await send(.productFailed(error.localizedDescription))
-//            }
-//        }
-//        .cancellable(id: CancelID.products, cancelInFlight: true)
-//    }
+
     private func loadFirstPage(
         query: String,
         delay: Duration
