@@ -63,6 +63,7 @@ struct ProductListFeature {
     
     private enum CancelID {
         case products
+        case loadMore
     }
     
     @Dependency(\.productService) var productService
@@ -94,7 +95,9 @@ struct ProductListFeature {
                 state.nextSkip = response.skip + response.products.count
                 state.isLoadingMore = false
                 state.paginationError = nil
-                return .none
+                // A page request for the previous results may have started while
+                // this search was waiting; its products don't belong to these results.
+                return .cancel(id: CancelID.loadMore)
             case let .productFailed(message):
                 state.isLoadingMore = false
                 state.loadingState = .failed(error: message)
@@ -146,7 +149,7 @@ struct ProductListFeature {
                         await send(.nextPageFailed(error.localizedDescription))
                     }
                 }
-                .cancellable(id: CancelID.products, cancelInFlight: true)
+                .cancellable(id: CancelID.loadMore, cancelInFlight: true)
 
             case let .nextPageLoaded(response):
                 guard case let .loaded(existingProducts) = state.loadingState
@@ -182,25 +185,29 @@ struct ProductListFeature {
         query: String,
         delay: Duration
     ) -> EffectOf<Self> {
-        .run { [clock, productService] send in
-            do {
-                if delay > .zero {
-                    try await clock.sleep(for: delay)
+        .merge(
+            // A new search makes any in-flight page request for the old results stale.
+            .cancel(id: CancelID.loadMore),
+            .run { [clock, productService] send in
+                do {
+                    if delay > .zero {
+                        try await clock.sleep(for: delay)
+                    }
+
+                    let response = try await productService.fetchPage(
+                        query: query,
+                        limit: 20,
+                        skip: 0
+                    )
+
+                    try Task.checkCancellation()
+                    await send(.productsLoaded(response, query: query))
+                } catch {
+                    guard !Task.isCancelled else { return }
+                    await send(.productFailed(error.localizedDescription))
                 }
-
-                let response = try await productService.fetchPage(
-                    query: query,
-                    limit: 20,
-                    skip: 0
-                )
-
-                try Task.checkCancellation()
-                await send(.productsLoaded(response, query: query))
-            } catch {
-                guard !Task.isCancelled else { return }
-                await send(.productFailed(error.localizedDescription))
             }
-        }
-        .cancellable(id: CancelID.products, cancelInFlight: true)
+            .cancellable(id: CancelID.products, cancelInFlight: true)
+        )
     }
 }

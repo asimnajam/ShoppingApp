@@ -32,10 +32,13 @@ actor FileCartStorage: CartStorage {
 
         let data = try Data(contentsOf: fileURL)
 
-        return try JSONDecoder().decode(
-            [CartItem].self,
-            from: data
-        )
+        do {
+            return try JSONDecoder().decode([CartItem].self, from: data)
+        } catch is DecodingError {
+            // Saved with an older or incompatible model. Start with an empty cart.
+            try? FileManager.default.removeItem(at: fileURL)
+            return []
+        }
     }
 
     func save(_ items: [CartItem]) async throws {

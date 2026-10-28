@@ -23,13 +23,13 @@ struct CartView: View {
             } else {
                 List(store.items) { item in
                     VStack(alignment: .leading, spacing: 8) {
-                        Text(item.product.title)
+                        Text(item.title)
                             .font(.headline)
                         
                         Text("Quantity: \(item.quantity)")
                         
                         Text(
-                            item.product.price,
+                            item.price,
                             format: .currency(code: "USD")
                         )
                         .foregroundStyle(.secondary)

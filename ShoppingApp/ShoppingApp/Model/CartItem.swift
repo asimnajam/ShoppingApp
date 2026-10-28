@@ -5,9 +5,31 @@
 //  Created by Syed Asim Najam on 20/10/2026.
 //
 
-struct CartItem: Identifiable, Codable, Equatable, Sendable {
-    let product: Product
-    var quantity: Int
+//struct CartItem: Identifiable, Codable, Equatable, Sendable {
+//    let product: Product
+//    var quantity: Int
+//
+//    var id: Product.ID { product.id }
+//}
 
-    var id: Product.ID { product.id }
+import Foundation
+
+struct CartItem: Identifiable, Codable, Equatable, Sendable {
+    let id: Product.ID
+    let title: String
+    let price: Double
+    let thumbnail: URL
+    var quantity: Int
+}
+
+extension CartItem {
+    init(product: Product, quantity: Int) {
+        self.init(
+            id: product.id,
+            title: product.title,
+            price: product.price,
+            thumbnail: product.thumbnail,
+            quantity: quantity
+        )
+    }
 }
