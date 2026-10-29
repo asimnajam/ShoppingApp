@@ -19,6 +19,7 @@ struct CartFeature {
         case removedTapped(id: CartItem.ID)
         case delegate(Delegate)
         
+        @CasePathable
         enum Delegate {
             case itemsChanged([CartItem])
         }
@@ -28,7 +29,7 @@ struct CartFeature {
         Reduce { state, action in
             switch action {
             case .quantityChanged(let id, let quantity):
-                guard quantity >= 0,
+                guard (0...CartItem.maxQuantity).contains(quantity),
                    let index = state.items.firstIndex(where: { $0.id == id }) else {
                     return .none
                 }
