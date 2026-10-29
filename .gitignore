@@ -1,8 +1,11 @@
 # macOS
 .DS_Store
 
-# Xcode User Data & Workspace State
+# Xcode user data (Package.resolved under project.xcworkspace stays tracked)
 xcuserdata/
 *.xcuserstate
-project.xcworkspace/
 *.xcuserdatad/
+
+# Build output
+build/
+DerivedData/

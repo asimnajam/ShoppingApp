@@ -12,7 +12,7 @@ protocol ProductService: Sendable {
         query: String,
         limit: Int,
         skip: Int
-    ) async throws -> Products
+    ) async throws -> ProductsResponse
 }
 
 struct DefaultProductService: ProductService {
@@ -27,7 +27,7 @@ struct DefaultProductService: ProductService {
         query: String,
         limit: Int,
         skip: Int
-    ) async throws -> Products {
+    ) async throws -> ProductsResponse {
         let trimmedQuery = query.trimmingCharacters(
             in: .whitespacesAndNewlines
         )

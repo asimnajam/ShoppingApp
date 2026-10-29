@@ -1,5 +1,5 @@
 //
-//  CartStorageKeyDependecy.swift
+//  CartStorageDependency.swift
 //  ShoppingApp
 //
 //  Created by Syed Asim Najam on 27/10/2026.

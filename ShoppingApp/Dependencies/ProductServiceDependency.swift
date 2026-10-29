@@ -1,5 +1,5 @@
 //
-//  ProductServiceKey.swift
+//  ProductServiceDependency.swift
 //  ShoppingApp
 //
 //  Created by Syed Asim Najam on 13/10/2026.
