@@ -19,10 +19,10 @@ protocol EndPoint {
 extension EndPoint {
     func makeRequest(_ urLString: String, additionalHeaders: [String: String] = [:]) throws -> URLRequest {
         guard let baseURL = URL(string: urLString) else {
-            throw APIError.invalidBaseURL
+            throw NetworkClientError.invalidURL
         }
         guard var urlComponent = URLComponents(url: baseURL, resolvingAgainstBaseURL: true) else {
-            throw APIError.invalidBaseURL
+            throw NetworkClientError.invalidURL
         }
         urlComponent.path = path
         if !queryItems.isEmpty {
@@ -30,7 +30,7 @@ extension EndPoint {
         }
         
         guard let url = urlComponent.url else {
-            throw APIError.badURL
+            throw NetworkClientError.invalidURL
         }
         var request = URLRequest(url: url)
         request.httpMethod = method.rawValue.uppercased()

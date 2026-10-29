@@ -61,11 +61,6 @@ extension DecodingError {
     }
 }
 
-enum APIError: Error {
-    case invalidBaseURL
-    case badURL
-}
-
 protocol DataDecodable: Sendable {
     func decode<R>(_ data: Data, type: R.Type) throws -> R where R: Decodable
 }
@@ -113,11 +108,13 @@ struct DefaultNetworkClient: NetworkClient {
                 throw NetworkClientError.invalidResponse
             }
             
-            guard (200..<299).contains(httpResponse.statusCode) else {
+            guard (200..<300).contains(httpResponse.statusCode) else {
                 throw NetworkClientError.statusCode(httpResponse.statusCode)
             }
             
             return try  decoder.decode(data, type: E.Response.self)
+        } catch let error as NetworkClientError {
+            throw error
         } catch let error as URLError where error.code == .cancelled {
             throw NetworkClientError.taskCancellation
         } catch is CancellationError {

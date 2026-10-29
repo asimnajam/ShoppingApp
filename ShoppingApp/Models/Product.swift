@@ -1,5 +1,5 @@
 //
-//  Products.swift
+//  Product.swift
 //  ShoppingApp
 //
 //  Created by Syed Asim Najam on 13/10/2026.
@@ -7,7 +7,8 @@
 
 import Foundation
 
-struct Products: Codable, Sendable {
+/// Paginated response returned by the products endpoints.
+struct ProductsResponse: Codable, Sendable {
     let products: [Product]
     let total: Int
     let skip: Int

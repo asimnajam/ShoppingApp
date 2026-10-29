@@ -39,9 +39,9 @@ struct ProductListFeature {
         case searchQueryChanged(String)
         case search(query: String)
         case fetchProducts
-        case productsLoaded(Products, query: String)
+        case productsLoaded(ProductsResponse, query: String)
         case loadMore
-        case nextPageLoaded(Products)
+        case nextPageLoaded(ProductsResponse)
         case nextPageFailed(String)
         case productFailed(String)
         case productSelected(Product)
