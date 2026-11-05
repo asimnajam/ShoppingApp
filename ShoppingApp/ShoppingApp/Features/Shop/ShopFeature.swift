@@ -11,7 +11,7 @@ import Foundation
 @Reducer
 struct ShopFeature {
     @ObservableState
-    struct State {
+    struct State: Equatable {
         var products: ProductListFeature.State = .init()
         var cart: CartFeature.State = .init()
         var hasLoadedCart = false

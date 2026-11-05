@@ -11,7 +11,7 @@ import Foundation
 @Reducer
 struct ProductListFeature {
     @ObservableState
-    struct State {
+    struct State: Equatable {
         var searchQuery = ""
         var loadingState: LoadingState = .idle
         var path = StackState<Path.State>()
@@ -33,7 +33,6 @@ struct ProductListFeature {
     enum Path {
         case detail(ProductDetailFeature)
     }
-    
     
     enum Action {
         case searchQueryChanged(String)
@@ -202,3 +201,5 @@ struct ProductListFeature {
         )
     }
 }
+
+extension ProductListFeature.Path.State: Equatable { }

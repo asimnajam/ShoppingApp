@@ -7,7 +7,8 @@
 
 import Foundation
 
-struct Products: Codable, Sendable {
+/// Paginated response returned by the products endpoints.
+struct ProductsResponse: Codable, Sendable, Equatable {
     let products: [Product]
     let total: Int
     let skip: Int
